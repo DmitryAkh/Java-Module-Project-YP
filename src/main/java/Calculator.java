@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Calculator {
-     static Scanner scanner = new Scanner(System.in);
-     static double totalPrice = 0;
+    static Scanner scanner = new Scanner(System.in);
+    static double totalPrice = 0;
 
     static String name;
     static String command;
@@ -20,18 +20,19 @@ public class Calculator {
             name = scanner.nextLine();
             while (true) {
                 System.out.println("Введите стоимость в формате РУБЛИ,КОПЕЙКИ: ");
-                if (scanner.hasNextDouble()) {
-                    inputPrice = scanner.nextDouble();
-                    scanner.nextLine();
+                while (!scanner.hasNextDouble()) {
+                    System.out.println("Некорректная стоимость. Введите стоимость в формате РУБЛИ,КОПЕЙКИ");
+                    scanner.next();
                 }
+                inputPrice = scanner.nextDouble();
+                scanner.nextLine();
                 if (inputPrice >= 0) {
-                    break;
+                break;
+                }else {
+                    System.out.println("Стоимость не может быть отрицательной, повторите ввод");
                 }
-                else {
-                    System.out.println("Ошибка ввода. Введите корректную стоимость в формате РУБЛИ,КОПЕЙКИ: ");
-                    scanner.nextLine();
                 }
-            }
+
             price = Formatter.round(inputPrice);
             itemList.add(new Item(name, price));
             totalPrice = totalPrice + price;
@@ -40,20 +41,19 @@ public class Calculator {
             command = scanner.nextLine();
         }
         while (!command.equalsIgnoreCase("Завершить"));
-        }
+    }
 
 
-         static void total() {
-            System.out.println("Все позиции чека: ");
-            for (Item item : itemList) {
+    static void total() {
+        System.out.println("Все позиции чека: ");
+        for (Item item : itemList) {
             System.out.println(item.getName() + " за " + item.getPrice() + " " + Formatter.getRubleAddition(item.getPrice()));
-            }
-            System.out.println("Итоговая общая сумма: " + Formatter.round(totalPrice) + " " + Formatter.getRubleAddition(totalPrice));
-             System.out.println("Количество персон: " + PersonInput.persons);
-            System.out.println("Итого с каждого по: " + Formatter.round(totalPrice/PersonInput.persons) +" "+ Formatter.getRubleAddition(totalPrice/PersonInput.persons));
-
         }
-
+        System.out.println("Итоговая общая сумма: " + Formatter.round(totalPrice) + " " + Formatter.getRubleAddition(totalPrice));
+        System.out.println("Количество персон: " + PersonInput.persons);
+        System.out.println("Итого с каждого по: " + Formatter.round(totalPrice/PersonInput.persons) +" "+ Formatter.getRubleAddition(totalPrice/PersonInput.persons));
 
     }
 
+
+}

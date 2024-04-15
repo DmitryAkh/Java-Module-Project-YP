@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class PersonInput {
-   static  int persons;
+    static Scanner scanner = new Scanner(System.in);
+    static  int persons;
 
      static void personRequest() {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Введите количество персон: ");
             while (!scanner.hasNextInt()) {
@@ -12,6 +12,7 @@ public class PersonInput {
                 scanner.next();
             }
             persons = scanner.nextInt();
+
             if (persons >= 2) {
                 break;
             } else {
